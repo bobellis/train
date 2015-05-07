@@ -35,6 +35,7 @@ class City
 
   define_method(:update) do |attributes|
     @name = attributes.fetch(:name, @name)
+    # @time = attributes.fetch(:time, @time)
     @id = self.id()
     DB.exec("UPDATE cities SET city_name = '#{@name}' WHERE id = #{@id};")
 
@@ -55,8 +56,30 @@ class City
     stops
   end
 
+  define_method(:get_times) do |city_id|
+    stop_times = []
+    results = DB.exec("SELECT * FROM stops WHERE city_id = #{city_id};")
+    results.each() do |result|
+      stop_time = result.fetch("stop_time")
+      stop_times.push(stop_time)
+    end
+    stop_times
+  end
+
   define_method(:delete) do
     DB.exec("DELETE FROM stops WHERE city_id = #{self.id()};")
     DB.exec("DELETE FROM cities WHERE id = #{self.id()};")
+  end
+
+  define_method(:arrivals) do |train_id|
+    stop_times = []
+    results = DB.exec("SELECT * FROM stops WHERE city_id = #{self.id()};")
+    results.each() do |result|
+      if result.fetch("train_id") == train_id
+        stop_time = result.fetch("stop_time")
+        stop_times.push(stop_time)
+      end
+    end
+    stop_times
   end
 end

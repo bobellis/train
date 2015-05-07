@@ -72,6 +72,17 @@ describe(City) do
     end
   end
 
+  describe("get_train_times") do
+    it("returns all of the train times for a particular train") do
+      test_city = City.new({:name => "portland", :id => nil})
+      test_city.save()
+      test_train = Train.new({:name => "red line", :id => nil})
+      test_train.save()
+      test_city.update({:train_ids => [test_train.id()})
+      expect(test_city.trains()).to(eq([red_line, blue_line]))
+    end
+  end
+
 
   describe("#delete") do
     it("lets you delete a city from the database") do

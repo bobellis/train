@@ -1,34 +1,7 @@
 <h1>Welcome to the Train app!</h1>
 
-<p><a href="/trains">Add a new train</a></p>
-<p><a href="/cities">Add a new city</a></p>
+<h1>Who are you?</h1>
 
+<p><a href="/operator">I'm an operator</a></p>
 
-<h3>Here are all the trains in this database:</h3>
-
-<% if @trains.any?() %>
-  <p>Click on a train to see information about it:</p>
-
-  <ul>
-    <% @trains.each do |train| %>
-      <li><a href="/trains/<%= train.id() %>"><%= train.name() %></a></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>There are no trains!</p>
-<% end %>
-
-
-<h3>Here are all the cities in our database:</h3>
-
-<% if @cities.any?() %>
-  <p>Click on a city to see information about it:</p>
-
-  <ul>
-    <% @cities.each do |city| %>
-      <li><a href="/cities/<%= city.id() %>"><%= city.name() %></a></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>There are no cities!</p>
-<% end %>
+<p><a href="/rider">I'm a rider</a></p>

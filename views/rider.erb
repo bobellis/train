@@ -1,0 +1,29 @@
+<h1>Welcome Rider!</h1>
+<p></p>
+<h2>View cities and trains here!</h2>
+
+<% if @cities.any?() %>
+  <p>Click on a city to see information about them:</p>
+
+  <ul>
+    <% @cities.each do |city| %>
+      <li><a href="/city_timetable/<%= city.id() %>"><%= city.name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no cities!</p>
+<% end %>
+
+<% if @trains.any?() %>
+  <p>Click on a train to see information about it:</p>
+
+  <ul>
+    <% @trains.each do |train| %>
+    <li><a href="/train_timetable/<%= train.id() %>"><%= train.name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no trains added yet!</p>
+<% end %>
+
+<p><a href="/">Return to Main Page</a></p>
