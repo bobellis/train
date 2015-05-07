@@ -55,6 +55,29 @@ class Train
     stops
   end
 
+
+  define_method(:cities_stop_id) do
+    stops = []
+    results = DB.exec("SELECT city_id FROM stops WHERE train_id = #{self.id()};")
+    results.each() do |result|
+      city_id = result.fetch("city_id").to_i()
+      city = DB.exec("SELECT * FROM cities WHERE id = #{city_id};")
+      name = city.first().fetch("city_name")
+      stops.push(City.new({:name => name, :id => city_id}))
+    end
+    stops
+  end
+
+  # define_method(:stops) do |city_id|
+  #   stops = []
+  #   results = DB.exec("SELECT * FROM stops WHERE city_id = #{city_id};")
+  #   results.each() do |result|
+  #     train_id = result.fetch("train_id").to_i()
+  #     if train_id == self.id()
+  #     stops.push(id)
+  #   end
+  # end
+
   define_method(:delete) do
   DB.exec("DELETE FROM stops WHERE train_id = #{self.id()};")
   DB.exec("DELETE FROM trains WHERE id = #{self.id()};")
